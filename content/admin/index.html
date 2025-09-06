@@ -1,0 +1,30 @@
+
+
+---
+permalink: "/admin/index.html"
+eleventyExcludeFromCollections: true
+layout: null
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CMS</title>
+  <!-- Netlify Identity widget so invite/reset/Google work -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => location.reload());
+        }
+      });
+    }
+  </script>
+</body>
+</html>

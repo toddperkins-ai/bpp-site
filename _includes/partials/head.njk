@@ -7,3 +7,20 @@
 {% if social_image %}<meta property="og:image" content="{{ site.url }}{{ social_image }}">{% endif %}
 <meta name="twitter:card" content="summary_large_image">
 {% if process.env.ELEVENTY_ENV != "production" %}<meta name="robots" content="noindex, nofollow">{% endif %}
+<!-- Netlify Identity widget (needed for invite / recovery / Google login) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      const hash = window.location.hash || "";
+      // If arriving from an invite / recovery / confirmation link, open the login modal
+      if (!user && (hash.includes("invite_token") || hash.includes("recovery_token") || hash.includes("confirmation_token"))) {
+        window.netlifyIdentity.open("login");
+      }
+      // After login (incl. Google), send to the CMS
+      window.netlifyIdentity.on("login", () => {
+        window.location.href = "/admin/";
+      });
+    });
+  }
+</script>
