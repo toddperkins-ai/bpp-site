@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><head>{% include "partials/head.njk" %}</head><body>
+<header><nav><a href="/">Home</a> · <a href="/locations/">Locations</a> · <a href="/services/">Services</a> · <a href="/blog/">Blog</a></nav></header>
+<main><section><h1>{{ title }}</h1>{{ content | safe }}
+{% if local_case %}<h2>Local case example</h2><p>{{ local_case }}</p>{% endif %}
+{% if photos %}<h2>Local photos</h2><div>{% for p in photos %}<figure><img src="{{ p.photo or p }}" alt=""><figcaption>{{ title }} – local proof</figcaption></figure>{% endfor %}</div>{% endif %}
+{% if faq %}<h2>Local FAQs</h2><dl>{% for f in faq %}<dt>{{ f.q }}</dt><dd>{{ f.a }}</dd>{% endfor %}</dl>{% endif %}
+{% include "partials/related.njk" %}{% include "partials/breadcrumbs.njk" %}{% include "partials/jsonld.njk" %}
+</section></main><footer><small>© {{ site.name }}</small></footer></body></html>

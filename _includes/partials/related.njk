@@ -1,0 +1,21 @@
+
+{% set thisCluster = cluster | default("") %}
+{% set thisPillar  = pillar  | default("") %}
+{% set related = [] %}
+
+{% for item in collections.allContent %}
+  {% if item.url != page.url and (item.data.cluster == thisCluster or item.data.pillar == thisPillar) %}
+    {% set related = related.concat(item) %}
+  {% endif %}
+{% endfor %}
+
+{% if related and related.length %}
+<section aria-labelledby="related">
+  <h2 id="related">Related reading</h2>
+  <ul>
+    {% for r in related | slice(0,3) %}
+      <li><a href="{{ r.url }}">{{ r.data.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

@@ -1,0 +1,7 @@
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ site.name }}","url":"{{ site.url }}"}</script>
+{% if layout == "layouts/post.njk" %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":["Article"{% if faq %},"FAQPage"{% endif %}],"headline":"{{ title }}","description":"{{ summary | safe }}","mainEntityOfPage":"{{ site.url }}{{ page.url }}"{% if social_image %},"image":"{{ site.url }}{{ social_image }}"{% endif %},"author":{"@type":"Organization","name":"{{ site.name }}"}{% if faq %},"mainEntity":[{% for f in faq %}{"@type":"Question","name":"{{ f.q }}","acceptedAnswer":{"@type":"Answer","text":"{{ f.a | safe }}"}}{% if not loop.last %},{% endif %}{% endfor %}]{% endif %}}</script>
+{% endif %}
+{% if layout == "layouts/service.njk" or layout == "layouts/location.njk" %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"{{ title }}","serviceType":"Bushfire services"{% if areaServed %},"areaServed":"{{ areaServed }}"{% endif %},"provider":{"@type":"Organization","name":"{{ site.name }}"},"url":"{{ site.url }}{{ page.url }}"}</script>
+{% endif %}

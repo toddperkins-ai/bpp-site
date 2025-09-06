@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head>{% include "partials/head.njk" %}</head><body>
+<header><nav><a href="/">Home</a> · <a href="/services/">Services</a> · <a href="/blog/">Blog</a> · <a href="/locations/">Locations</a></nav></header>
+<main><section><h1>{{ title }}</h1>{% if areaServed %}<p><strong>Area served:</strong> {{ areaServed }}</p>{% endif %}
+{{ content | safe }}
+{% if inclusions %}<h2>Inclusions</h2><ul>{% for item in inclusions %}<li>{{ item.item or item }}</li>{% endfor %}</ul>{% endif %}
+{% if steps %}<h2>Process</h2><ol>{% for s in steps %}<li>{{ s.step or s }}</li>{% endfor %}</ol>{% endif %}
+{% if faq %}<h2>FAQs</h2><dl>{% for f in faq %}<dt>{{ f.q }}</dt><dd>{{ f.a }}</dd>{% endfor %}</dl>{% endif %}
+{% include "partials/related.njk" %}{% include "partials/breadcrumbs.njk" %}{% include "partials/jsonld.njk" %}
+</section></main><footer><small>© {{ site.name }}</small></footer></body></html>

@@ -1,0 +1,14 @@
+[build]
+  command = "npx @11ty/eleventy"
+  publish = "_site"
+
+[context.production.environment]
+  ELEVENTY_ENV = "production"
+
+[context."branch:staging".environment]
+  ELEVENTY_ENV = "preview"
+
+[context."branch:staging".headers]
+  for = "/*"
+  [context."branch:staging".headers.values]
+    X-Robots-Tag = "noindex, nofollow"

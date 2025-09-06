@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><head>{% include "partials/head.njk" %}</head><body>
+<header><nav><a href="/">Home</a> · <a href="/blog/">Blog</a> · <a href="/services/">Services</a> · <a href="/locations/">Locations</a></nav></header>
+<main><article><h1>{{ title }}</h1>{% if summary %}<p><em>{{ summary }}</em></p>{% endif %}
+{{ content | safe }}
+{% include "partials/related.njk" %}{% include "partials/breadcrumbs.njk" %}{% include "partials/jsonld.njk" %}
+</article></main><footer><small>© {{ site.name }}</small></footer></body></html>

@@ -1,0 +1,62 @@
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+media_folder: "public/assets/uploads"
+public_folder: "/assets/uploads"
+collections:
+  - name: "post"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/blog/{{slug}}/"}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Primary Keyword", name: "primary_keyword", widget: "string"}
+      - {label: "Supporting Keywords", name: "supporting_keywords", widget: "string"}
+      - {label: "Cluster", name: "cluster", widget: "string"}
+      - {label: "Pillar", name: "pillar", widget: "string"}
+      - {label: "Proof Assets", name: "proof_assets", widget: "list", field: {label: "Asset", name: "asset", widget: "string"}}
+      - {label: "Social Image", name: "social_image", widget: "string", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Template", name: "layout", widget: "hidden", default: "layouts/post.njk"}
+  - name: "service"
+    label: "Service Pages"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/services/{{slug}}/"}
+      - {label: "Area Served", name: "areaServed", widget: "string"}
+      - {label: "Inclusions", name: "inclusions", widget: "list", field: {label: "Item", name: "item", widget: "string"}}
+      - {label: "Process Steps", name: "steps", widget: "list", field: {label: "Step", name: "step", widget: "string"}}
+      - {label: "FAQs", name: "faq", widget: "list", fields: [{label: "Q", name: "q", widget: "string"}, {label: "A", name: "a", widget: "text"}]}
+      - {label: "Primary Keyword", name: "primary_keyword", widget: "string"}
+      - {label: "Cluster", name: "cluster", widget: "string"}
+      - {label: "Pillar", name: "pillar", widget: "string"}
+      - {label: "Proof Assets", name: "proof_assets", widget: "list", field: {label: "Asset", name: "asset", widget: "string"}}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Template", name: "layout", widget: "hidden", default: "layouts/service.njk"}
+  - name: "location"
+    label: "Location Pages"
+    folder: "content/locations"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/locations/{{slug}}/"}
+      - {label: "Local Case Note", name: "local_case", widget: "text", required: false}
+      - {label: "Local Photos (paths)", name: "photos", widget: "list", field: {label: "Photo", name: "photo", widget: "string"}, required: false}
+      - {label: "Unique Local FAQs", name: "faq", widget: "list", fields: [{label: "Q", name: "q", widget: "string"}, {label: "A", name: "a", widget: "text"}], required: false}
+      - {label: "Primary Keyword", name: "primary_keyword", widget: "string"}
+      - {label: "Cluster", name: "cluster", widget: "string"}
+      - {label: "Pillar", name: "pillar", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Template", name: "layout", widget: "hidden", default: "layouts/location.njk"}

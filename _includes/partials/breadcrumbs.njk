@@ -1,0 +1,7 @@
+<nav aria-label="Breadcrumb"><ol>
+<li><a href="/">Home</a></li>
+{% if page.url.startsWith('/blog/') %}<li><a href="/blog/">Blog</a></li>{% endif %}
+{% if page.url.startsWith('/services/') %}<li><a href="/services/">Services</a></li>{% endif %}
+{% if page.url.startsWith('/locations/') %}<li><a href="/locations/">Locations</a></li>{% endif %}
+<li aria-current="page">{{ title }}</li>
+</ol></nav>
