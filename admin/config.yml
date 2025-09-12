@@ -1,62 +1,105 @@
 backend:
+  # For now, use the local proxy (no OAuth needed).
+  # When you want remote editing later, switch to:
+  #   name: git-gateway   (Netlify Identity)
+  # or name: github       (GitHub OAuth)
   name: git-gateway
   branch: main
+
 local_backend: true
-media_folder: "public/assets/uploads"
-public_folder: "/assets/uploads"
+publish_mode: editorial_workflow
+
+media_folder: "public/assets/images/uploads"   # where files go in the repo
+public_folder: "/assets/images/uploads"        # how they’re referenced in the site
+
 collections:
-  - name: "post"
-    label: "Blog Posts"
+  # -------- SINGLE-FILE EDITS (JSON in _data) --------
+  - label: "Site Settings"
+    name: "site_settings"
+    files:
+      - label: "General"
+        name: "site"
+        file: "_data/site.json"
+        format: "json"
+        fields:
+          - { label: "Site Name", name: "name", widget: "string" }
+          - { label: "Title (optional)", name: "title", widget: "string", required: false }
+          - { label: "Site URL", name: "url", widget: "string" }
+          - { label: "Description", name: "description", widget: "text" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Logo Path", name: "logo", widget: "string", default: "/assets/images/COMPANY-LOGO.png" }
+          - { label: "Google Tag Manager ID", name: "gtm_id", widget: "string", required: false }
+          - { label: "Google Site Verification", name: "google_site_verification", widget: "string", required: false }
+          - label: "Social Links"
+            name: "social"
+            widget: "list"
+            fields:
+              - { label: "Platform", name: "platform", widget: "select", options: [facebook, x, twitter, instagram, youtube] }
+              - { label: "URL", name: "url", widget: "string" }
+
+      - label: "SEO Defaults"
+        name: "seo"
+        file: "_data/seo.json"
+        format: "json"
+        fields:
+          - { label: "Title Suffix", name: "titleSuffix", widget: "string", required: false }
+          - { label: "Default Description", name: "defaultDescription", widget: "text", required: false }
+          - { label: "OG Image (URL or path)", name: "ogImage", widget: "string", required: false }
+          - { label: "OG Image Alt", name: "ogImageAlt", widget: "string", required: false }
+
+      - label: "Navigation"
+        name: "nav"
+        file: "_data/nav.json"
+        format: "json"
+        fields:
+          - label: "Main Nav"
+            name: "main"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+          - label: "Footer Nav"
+            name: "footer"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+
+  # -------- FOLDER COLLECTIONS --------
+  - label: "Blog"
+    name: "blog"
     folder: "content/blog"
     create: true
     slug: "{{slug}}"
+    extension: "md"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: "/blog/{{slug}}/"}
-      - {label: "Summary", name: "summary", widget: "text"}
-      - {label: "Date", name: "date", widget: "datetime"}
-      - {label: "Primary Keyword", name: "primary_keyword", widget: "string"}
-      - {label: "Supporting Keywords", name: "supporting_keywords", widget: "string"}
-      - {label: "Cluster", name: "cluster", widget: "string"}
-      - {label: "Pillar", name: "pillar", widget: "string"}
-      - {label: "Proof Assets", name: "proof_assets", widget: "list", field: {label: "Asset", name: "asset", widget: "string"}}
-      - {label: "Social Image", name: "social_image", widget: "string", required: false}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: true}
-      - {label: "Template", name: "layout", widget: "hidden", default: "layouts/post.njk"}
-  - name: "service"
-    label: "Service Pages"
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - label: "Services"
+    name: "services"
     folder: "content/services"
     create: true
     slug: "{{slug}}"
+    extension: "md"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: "/services/{{slug}}/"}
-      - {label: "Area Served", name: "areaServed", widget: "string"}
-      - {label: "Inclusions", name: "inclusions", widget: "list", field: {label: "Item", name: "item", widget: "string"}}
-      - {label: "Process Steps", name: "steps", widget: "list", field: {label: "Step", name: "step", widget: "string"}}
-      - {label: "FAQs", name: "faq", widget: "list", fields: [{label: "Q", name: "q", widget: "string"}, {label: "A", name: "a", widget: "text"}]}
-      - {label: "Primary Keyword", name: "primary_keyword", widget: "string"}
-      - {label: "Cluster", name: "cluster", widget: "string"}
-      - {label: "Pillar", name: "pillar", widget: "string"}
-      - {label: "Proof Assets", name: "proof_assets", widget: "list", field: {label: "Asset", name: "asset", widget: "string"}}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: true}
-      - {label: "Template", name: "layout", widget: "hidden", default: "layouts/service.njk"}
-  - name: "location"
-    label: "Location Pages"
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - label: "Locations"
+    name: "locations"
     folder: "content/locations"
     create: true
     slug: "{{slug}}"
+    extension: "md"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: "/locations/{{slug}}/"}
-      - {label: "Local Case Note", name: "local_case", widget: "text", required: false}
-      - {label: "Local Photos (paths)", name: "photos", widget: "list", field: {label: "Photo", name: "photo", widget: "string"}, required: false}
-      - {label: "Unique Local FAQs", name: "faq", widget: "list", fields: [{label: "Q", name: "q", widget: "string"}, {label: "A", name: "a", widget: "text"}], required: false}
-      - {label: "Primary Keyword", name: "primary_keyword", widget: "string"}
-      - {label: "Cluster", name: "cluster", widget: "string"}
-      - {label: "Pillar", name: "pillar", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Draft", name: "draft", widget: "boolean", default: true}
-      - {label: "Template", name: "layout", widget: "hidden", default: "layouts/location.njk"}
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
