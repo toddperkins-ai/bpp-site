@@ -3,8 +3,7 @@ module.exports = function (config) {
 
   // Copy static assets from /public to site root
   config.addPassthroughCopy({ "public": "/" });
-  config.addPassthroughCopy({ "public": "/" });
-  config.addPassthroughCopy({ "admin/config.yml": "admin/config.yml" });
+  config.addPassthroughCopy("admin");
 
 
   // Hide drafts in production, show everything in dev
