@@ -1,1 +1,17 @@
-{ "name": "Bushfire Protection & Planning", "url": "https://example.com", "description": "BAL assessments, BMPs and bushfire planning in WA." }
+{
+  "name": "Bushfire Protection & Planning",
+  "title": "Bushfire Protection and Planning",
+  "url": "https://www.bushfireprotectionandplanning.au",
+  "description": "BAL assessments, BMPs and bushfire planning in WA.",
+  "phone": "0480 040 667",
+  "email": "admin@bushfireprotectionandplanning.au",
+  "logo": "/assets/images/COMPANY-LOGO.png",
+  "gtm_id": "GTM-TWC64RKR",
+  "google_site_verification": "1GR66CspjFplrWEq_vjcV4rDhQNBiGJaefl-Z6aLY5I",
+  "social": [
+    { "platform": "facebook", "url": "https://www.facebook.com/profile.php?id=61568138097949" },
+    { "platform": "x",        "url": "https://x.com/bushfirepro" },
+    { "platform": "instagram","url": "https://www.instagram.com/bushfireprotectionandplanning/" },
+    { "platform": "youtube",  "url": "https://www.youtube.com/@bushfireprotectionandplanning" }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "main": [
+    { "label": "Home", "url": "/" },
+    { "label": "Contact", "url": "/#contact-section" },
+    { "label": "BAL Ratings", "url": "/pages/bal-rating.html" },
+    { "label": "Bushfire Management Plans", "url": "/pages/coming-soon.html" },
+    { "label": "Blog", "url": "/pages/blog.html" },
+    { "label": "FAQs", "url": "/#FAQs" }
+  ],
+  "footer": [
+    { "label": "Home", "url": "/index.html" },
+    { "label": "Services", "url": "/#services" },
+    { "label": "Information for builders", "url": "/pages/bal-rating.html" },
+    { "label": "bushfire prone areas map", "url": "https://www.dfes.wa.gov.au/hazard-information/bushfire/bushfire-prone-areas" },
+    { "label": "Contact", "url": "/#contact-section" }
+  ]
+}

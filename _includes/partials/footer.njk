@@ -2,18 +2,17 @@
 <footer>
   <div class="social-icons">
     {% for s in _site.social | default([]) %}
-      {% set p = (s.platform or s.name or '') | lower %}
-      {% set icon = "/assets/images/" + (
-        p == "facebook" ? "facebook.svg" :
-        (p == "x" or p == "twitter") ? "twitter-x-logo-black-round-20851.svg" :
-        p == "instagram" ? "instagram.svg" :
-        p == "youtube" ? "youtube.svg" : ""
-      ) %}
-      <a href="{{ s.url }}" target="_blank" rel="noopener" aria-label="Visit our {{ s.platform | default('social') }} page">
-        {% if icon %}
-          <img src="{{ icon }}" alt="{{ s.platform | default('social') }} icon">
-        {% else %}
-          {{ s.platform | default('Social') }}
+      {% set p = (s.platform or '') | lower %}
+      <a href="{{ s.url }}" target="_blank" rel="noopener"
+         aria-label="Visit our {{ p | default('social') }} page">
+        {% if p == "facebook" %}
+          <img src="/assets/images/facebook.svg" alt="Facebook icon">
+        {% elif p == "x" or p == "twitter" %}
+          <img src="/assets/images/twitter-x-logo-black-round-20851.svg" alt="X (formerly Twitter) icon">
+        {% elif p == "instagram" %}
+          <img src="/assets/images/instagram.svg" alt="Instagram icon">
+        {% elif p == "youtube" %}
+          <img src="/assets/images/youtube.svg" alt="YouTube icon">
         {% endif %}
       </a>
     {% endfor %}
@@ -41,17 +40,19 @@
 
   <div class="footer-contact">
     <div class="pn">
-      <a href="tel:{{ (_site.phone | default('0480 040 667')) | replace(' ', '') }}" aria-label="Contact us by phone">
+      <a href="tel:{{ (_site.phone | default('0480 040 667')) | replace(' ', '') }}"
+         aria-label="Contact us by phone">
         Phone: {{ _site.phone | default('0480 040 667') }}
       </a>
     </div>
     <div class="email">
-      <a href="mailto:{{ _site.email | default('admin@bushfireprotectionandplanning.au') }}" aria-label="Send us an email">
+      <a href="mailto:{{ _site.email | default('admin@bushfireprotectionandplanning.au') }}"
+         aria-label="Send us an email">
         {{ _site.email | default('admin@bushfireprotectionandplanning.au') }}
       </a>
     </div>
     <div class="copy-right">
-      <p>&copy; 2023 {{ _site.title | default('Bushfire Protection and Planning') }}</p>
+      <p>&copy; 2025 {{ _site.name | default('Bushfire Protection and Planning') }}</p>
     </div>
   </div>
 </footer>

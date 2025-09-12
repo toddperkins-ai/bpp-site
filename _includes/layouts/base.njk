@@ -3,9 +3,9 @@
 {% set _seo  = seo  | default({}) %}
 
 {# Page-level values with safe defaults #}
-{% set pageTitle      = title or _site.title or "Site" %}
-{% set fullTitle      = pageTitle ~ (_seo.titleSuffix or "") %}
-{% set metaDescription = description or _seo.defaultDescription %}
+{% set pageTitle       = title or _site.name or _site.title or "Site" %}
+{% set fullTitle       = pageTitle ~ (_seo.titleSuffix or "") %}
+{% set metaDescription = description or _seo.defaultDescription or _site.description %}
 {% set canonicalHref   = canonical or ((_site.url or "") ~ (page.url or "/")) %}
 
 <!DOCTYPE html>

@@ -26,7 +26,8 @@
   <meta property="og:title" content="{{ fullTitle | escape }}">
   {% if metaDescription %}<meta property="og:description" content="{{ metaDescription | escape }}">{% endif %}
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="{{ _site.title | escape }}">
+  <meta property="og:site_name" content="{{ _site.name or _site.title | escape }}">
+
   <meta property="og:locale" content="en_AU">
   {% if _site.url %}<meta property="og:url" content="{{ canonicalHref }}">{% endif %}
   {% if ogImage %}<meta property="og:image" content="{{ ogImage }}">{% endif %}
