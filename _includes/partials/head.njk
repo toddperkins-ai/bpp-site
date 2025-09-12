@@ -1,26 +1,77 @@
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ title }} | {{ site.name }}</title>
-{% if summary %}<meta name="description" content="{{ summary | safe }}">{% endif %}
-<link rel="canonical" href="{{ site.url | default('') }}{{ page.url }}">
-<meta property="og:type" content="article"><meta property="og:title" content="{{ title }}">
-<meta property="og:description" content="{{ summary | safe }}"><meta property="og:url" content="{{ site.url }}{{ page.url }}">
-{% if social_image %}<meta property="og:image" content="{{ site.url }}{{ social_image }}">{% endif %}
-<meta name="twitter:card" content="summary_large_image">
-{% if process.env.ELEVENTY_ENV != "production" %}<meta name="robots" content="noindex, nofollow">{% endif %}
-<!-- Netlify Identity widget (needed for invite / recovery / Google login) -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user) => {
-      const hash = window.location.hash || "";
-      // If arriving from an invite / recovery / confirmation link, open the login modal
-      if (!user && (hash.includes("invite_token") || hash.includes("recovery_token") || hash.includes("confirmation_token"))) {
-        window.netlifyIdentity.open("login");
-      }
-      // After login (incl. Google), send to the CMS
-      window.netlifyIdentity.on("login", () => {
-        window.location.href = "/admin/";
-      });
-    });
+{# _includes/partials/head.njk #}
+<head>
+  {# Google Tag Manager (one copy only) #}
+  {% if _site.gtm_id %}
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','{{ _site.gtm_id }}');</script>
+  {% endif %}
+
+  {% if _site.google_site_verification %}
+  <meta name="google-site-verification" content="{{ _site.google_site_verification }}">
+  {% endif %}
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {# Title/description/canonical come from page front matter or defaults #}
+  <title>{{ fullTitle | escape }}</title>
+  {% if metaDescription %}<meta name="description" content="{{ metaDescription | escape }}">{% endif %}
+  {% if canonicalHref %}<link rel="canonical" href="{{ canonicalHref }}">{% endif %}
+
+  {# Open Graph (matching your site) #}
+  {% set ogImage = _seo.ogImage or (_site.url and _site.logo ? (_site.url ~ _site.logo) : null) %}
+  <meta property="og:title" content="{{ fullTitle | escape }}">
+  {% if metaDescription %}<meta property="og:description" content="{{ metaDescription | escape }}">{% endif %}
+  {% if ogImage %}<meta property="og:image" content="{{ ogImage }}">{% endif %}
+  {% if _seo.ogImageAlt %}<meta property="og:image:alt" content="{{ _seo.ogImageAlt | escape }}">{% endif %}
+  <meta property="og:locale" content="en_AU">
+  {% if _site.url %}<meta property="og:url" content="{{ canonicalHref }}">{% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ _site.title | escape }}">
+
+  {# Twitter #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ fullTitle | escape }}">
+  {% if metaDescription %}<meta name="twitter:description" content="{{ metaDescription | escape }}">{% endif %}
+  {% if ogImage %}<meta name="twitter:image" content="{{ ogImage }}">{% endif %}
+
+  {# Favicon #}
+  <link rel="icon" href="/assets/images/favicon-32x32.png" type="image/png">
+
+  {# CSS & assets #}
+  <link rel="stylesheet" href="/assets/css/main-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/faq.css">
+  <link rel="stylesheet" href="/assets/css/popup-form.css">
+
+  {# Preconnects #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  {# Organization schema (your values) #}
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfessionalService",
+    "name":"{{ _site.title }}",
+    "image":"{{ ogImage or (_site.url ~ '/assets/images/COMPANY-LOGO.png') }}",
+    "@id":"{{ _site.url }}/",
+    "url":"{{ _site.url }}/",
+    "telephone":"{{ _site.phone }}",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"22 Ormsby Terrace",
+      "addressLocality":"Mandurah",
+      "addressRegion":"WA",
+      "postalCode":"6210",
+      "addressCountry":"AU"
+    },
+    "geo":{"@type":"GeoCoordinates","latitude":-32.52726380250625,"longitude":115.71770149712103},
+    "openingHoursSpecification":[{
+      "@type":"OpeningHoursSpecification",
+      "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens":"09:00","closes":"17:30"
+    }],
+    "sameAs": {{ _site.social | default([]) | dump | safe }}
   }
-</script>
+  </script>
+</head>
