@@ -1,0 +1,36 @@
+{# _includes/layouts/base.njk #}
+{% set _site = site | default({}) %}
+{% set _seo  = seo  | default({}) %}
+
+{# Page-level values with safe defaults #}
+{% set pageTitle      = title or _site.title or "Site" %}
+{% set fullTitle      = pageTitle ~ (_seo.titleSuffix or "") %}
+{% set metaDescription = description or _seo.defaultDescription %}
+{% set canonicalHref   = canonical or ((_site.url or "") ~ (page.url or "/")) %}
+
+<!DOCTYPE html>
+<html lang="en-AU">
+  {# Head & meta (we’ll create this partial next) #}
+  {% include "partials/head.njk" %}
+
+  <body>
+    {# Google Tag Manager (noscript) — first thing in <body> if GTM is set in _data/site.json #}
+    {% if _site.gtm_id %}
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id={{ _site.gtm_id }}"
+              height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    {% endif %}
+
+    {# Site header (next file we’ll add) #}
+    {% include "partials/header.njk" %}
+
+    <main id="main-content">
+      {% block content %}{% endblock %}
+    </main>
+
+    {# Footer and scripts (we’ll add these too) #}
+    {% include "partials/footer.njk" %}
+    {% include "partials/scripts.njk" %}
+  </body>
+</html>
