@@ -1,0 +1,71 @@
+{# _includes/partials/header.njk #}
+<header>
+  <div class="banner">
+    <div class="logo">
+      <a href="/">
+        <img
+          src="{{ _site.logo | default('/assets/images/COMPANY-LOGO.png') }}"
+          alt="{{ _site.title | default('Bushfire Protection and Planning') }} logo featuring a stylized flame design">
+      </a>
+    </div>
+
+    <div class="area">
+      <div class="pin-icon">
+        <a href="#our-office-location">
+          <img src="/assets/images/pindrop.png" alt="view location on map">
+        </a>
+      </div>
+      <div class="area-stack">
+        <div class="region"><p>All Perth and regional WA</p></div>
+        <div class="state"><p>Western Australia</p></div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="contact-stack">
+        <div class="phone-container">
+          <div class="phone-icon">
+            <img src="/assets/images/phonecall.png" alt="call us">
+          </div>
+          <div class="tel"><p>{{ _site.phone | default('0480 040 667') }}</p></div>
+        </div>
+        <div class="top-email">{{ _site.email | default('admin@bushfireprotectionandplanning.au') }}</div>
+      </div>
+    </div>
+
+    <div class="top-cta">
+      <a class="popup-trigger">
+        <button id="top-btn">BOOK NOW</button>
+      </a>
+    </div>
+
+    <div class="hamburger-menu">
+      <button class="hamburger" onclick="toggleMenu()" id="hamburger-button">&#9776;</button>
+      <nav class="nav-menu" id="navMenu" style="display: none;">
+        <ul>
+          {% for item in nav.main %}
+            <li>
+              {% if item.popup %}
+                <button class="popup-trigger menu-button" onclick="closeMenu()">{{ item.label }}</button>
+              {% else %}
+                <a href="{{ item.url }}">{{ item.label }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <ul class="large-menu nav">
+    {% for item in nav.main %}
+      <li class="nav-box">
+        {% if item.popup %}
+          <a href="/" class="popup-trigger">{{ item.label }}</a>
+        {% else %}
+          <a href="{{ item.url }}">{{ item.label }}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</header>
