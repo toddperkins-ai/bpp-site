@@ -1,7 +1,8 @@
 [build]
   command = "npx @11ty/eleventy"
   publish = "_site"
-
+[build.environment]
+NODE_VERSION = "22"
 [context.production.environment]
   ELEVENTY_ENV = "production"
 
