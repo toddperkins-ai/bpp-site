@@ -1,0 +1,10 @@
+p,li,ul,ol,a{
+    font-family:roboto,sans-serif;
+    line-height: 1.5rem;
+    text-decoration:none;
+    text-align:left;
+}
+#blog-table td:nth-child(3){
+    width:30%;
+    color:#555
+}

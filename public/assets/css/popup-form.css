@@ -1,0 +1,151 @@
+/* CTA Section */
+.cta-section {
+    
+    margin:4vh 5vw;
+    padding: 2em;
+    background: #fff;
+    text-align: center;
+    border-radius: 8px;
+   
+    box-sizing: border-box;
+}
+.cta-sec-container{
+    display: flex;
+    justify-content: center;
+}
+.cta-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+.cta-section p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.5em;
+    line-height: 1.6;
+}
+.cta-button {
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    background: #007BFF;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+    border: 0px;
+    cursor: pointer;
+}
+.cta-button:hover {
+    background: #0056b3;
+}
+
+/* Full-screen Form */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form Content */
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 8px;
+  
+}
+
+/* Back Arrow Button */
+
+/* Form Styles */
+input, textarea {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+input, textarea {
+    width: 90%; /* Adjust width to fit inside the form */
+    max-width: 450px; /* Prevents stretching */
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    
+}
+
+
+textarea {
+    height: 100px; /* Gives more space for messages */
+    resize: none; /* Prevents resizing */
+}
+
+.popup-btn {
+    background: #ff6600;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+.popup-btn:hover {
+    background: #cc5500;
+}
+
+
+
+/* Back Button Styling */
+.back-arrow {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007BFF;
+    cursor: pointer;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+}
+@media screen and (max-width:500px){
+    .cta-section{
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        font-size: 1rem;
+    }
+    .cta-section p{
+        font-size: 1rem;
+    }
+    #services p{
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+    .credentials{
+        margin: 5vh 0vw;
+    }
+    .welcome-h1{
+        font-size: 2rem;
+        font-weight:100;
+    }
+    .welcome-h3{
+        font-size: 1.5rem;
+        padding: 0vh 2vw;
+
+    }
+}
