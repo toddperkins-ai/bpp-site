@@ -1,48 +1,53 @@
 module.exports = function (config) {
   const isProd = process.env.ELEVENTY_ENV === "production";
 
-  // Copy static assets from /public to site root
+  // Static passthroughs
   config.addPassthroughCopy({ "public": "/" });
   config.addPassthroughCopy("admin");
 
+  // Helpers
+  const filterDrafts = (items) => items.filter(i => (isProd ? !i.data.draft : true));
 
-  // Hide drafts in production, show everything in dev
-  function filterDrafts(items) {
-    return items.filter(i => (isProd ? !i.data.draft : true));
-  }
+  // Collections (globs are relative to dir.input = "content")
+  config.addCollection("pages", (col) =>
+    filterDrafts(col.getFilteredByGlob("pages/*.md"))
+  );
 
-  // Collections
   config.addCollection("posts", (col) =>
-    filterDrafts(
-      col.getFilteredByGlob("content/blog/*.md")
-    ).sort((a, b) => b.date - a.date)
+    filterDrafts(col.getFilteredByGlob("blog/*.md"))
+      .sort((a, b) => b.date - a.date)
   );
 
   config.addCollection("services", (col) =>
-    filterDrafts(col.getFilteredByGlob("content/services/*.md"))
+    filterDrafts(col.getFilteredByGlob("services/*.md"))
   );
 
   config.addCollection("locations", (col) =>
-    filterDrafts(col.getFilteredByGlob("content/locations/*.md"))
+    filterDrafts(col.getFilteredByGlob("locations/*.md"))
   );
 
-  // Combined collection for "related content" lookups
-  config.addCollection("allContent", (col) => {
-    return [
-      ...filterDrafts(col.getFilteredByGlob("content/blog/*.md")),
-      ...filterDrafts(col.getFilteredByGlob("content/services/*.md")),
-      ...filterDrafts(col.getFilteredByGlob("content/locations/*.md")),
-    ];
-  });
+  // For related-content lookups across the site
+  config.addCollection("allContent", (col) => ([
+    ...filterDrafts(col.getFilteredByGlob("blog/*.md")),
+    ...filterDrafts(col.getFilteredByGlob("services/*.md")),
+    ...filterDrafts(col.getFilteredByGlob("locations/*.md")),
+    ...filterDrafts(col.getFilteredByGlob("pages/*.md")),
+  ]));
 
   // Filters
-  // Make absolute URLs
+  config.addFilter("byCluster", (pages, cluster, currentUrl) =>
+    (pages || []).filter(p => p.data.cluster === cluster && p.url !== currentUrl)
+  );
+
+  config.addFilter("findBySlug", (pages, slug) =>
+    (pages || []).find(p => p.data.slug === slug)
+  );
+
   config.addFilter("abs", function (path) {
     const site = this.ctx.site || { url: "" };
     return `${site.url || ""}${path}`;
   });
 
-  // Join two arrays in templates: arr | concat(arr2)
   config.addFilter("concat", function (arr1, arr2) {
     if (!Array.isArray(arr1)) arr1 = [];
     if (!Array.isArray(arr2)) arr2 = [];
